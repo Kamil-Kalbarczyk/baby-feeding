@@ -23,15 +23,14 @@
 
 
 // Variables
-const breasts = document.querySelector('main');
+// const breasts = document.querySelector('main');
 const leftBreastButton = document.querySelector('main div.leftBreast');
 const rightBreastButton = document.querySelector('main div.rightBreast');
 const hisotryUl = document.querySelector('.history__list');
 const hisotryList = document.querySelectorAll('.history__list li');
 const dateInput = document.querySelector('input[type = date');
 const timeInput = document.querySelector('input[type = time');
-let lastLeftBreast = true;
-let feedingHistory = [];
+// let feedingHistory = [];
 
 
 // add current time to the inputs
@@ -58,12 +57,12 @@ function choseLeftBreast(e) {
     leftBreastButton.classList.add('lastBreast');
     rightBreastButton.classList.add('nextBreast');
     rightBreastButton.classList.remove('lastBreast');
-    lastLeftBreast = true;
+    // lastLeftBreast = true;
     const newFeeding = {
         breast: 'lewa',
         date: `${dateInput.value} ${timeInput.value}`
     };
-    feedingHistory.push(newFeeding);
+    // feedingHistory.push(newFeeding);
     addDataToFirestore('lewa', `${dateInput.value} ${timeInput.value}`);
     renderFeeds();
 };
@@ -78,7 +77,7 @@ function choseRightBreast(e) {
         breast: 'prawa',
         date: `${dateInput.value} ${timeInput.value}`
     };
-    feedingHistory.push(newFeeding);
+    // feedingHistory.push(newFeeding);
     addDataToFirestore('prawa', `${dateInput.value} ${timeInput.value}`)
     renderFeeds();
 }
@@ -92,21 +91,39 @@ const renderFeeds = async () => {
       const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-         console.log(doc.id, " => ", doc.data());
-
+        //  console.log(doc.id, " => ", doc.data());
           const li = document.createElement('li');
-            const pWithBreast = document.createElement('p');
-            const pWithDate = document.createElement('p');
-            li.innerHTML = `
-             <div>
-            <p class="history__breast">${doc.data().breast}</p>
-            <p class="history__date">${doc.data().date}</p>
-             </div>`;
+            const breast = document.createElement('p');
+            breast.textContent = doc.data().breast;
+            const date = document.createElement('p');
+            date.textContent = doc.data().date;
+            const div = document.createElement('div');
+            div.appendChild(breast);
+            div.appendChild(date);
+            li.appendChild(div);
+            // li.innerHTML = `
+            //  <div>
+            // <p class="history__breast">${doc.data().breast}</p>
+            // <p class="history__date">${doc.data().date}</p>
+            //  </div>`;
             hisotryUl.appendChild(li);
+            if (doc.data().breast === 'lewa') {
+               div.style.backgroundColor = '#66fcf1' 
+            } else {
+                div.style.backgroundColor = '#ffcb9b';
+            }
         });
 };
 
 renderFeeds();
+
+// check last breast use
+
+const checkLastBreast = async () => {
+    const querySnapshot = await getDocs(q);
+}
+
+checkLastBreast()
 
 leftBreastButton.addEventListener('click', choseLeftBreast);
 rightBreastButton.addEventListener('click', choseRightBreast);
