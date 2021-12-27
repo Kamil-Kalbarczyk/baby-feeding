@@ -1,3 +1,7 @@
+$backgroundColorApp: #123456;
+$leftBreastColor: #66fcf1;
+$rightBreastColor: #ffcb9b;
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +14,7 @@ div.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #123456;
+  background-color: $backgroundColorApp;
 }
 
 header {
@@ -52,12 +56,22 @@ main {
     }
   }
 
+  .lastBreast > p {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #bd081c;
+  }
+
+  .nextBreast > p {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #09b83e;
+  }
+
   .leftBreast {
-    background-color: #66fcf1;
+    background-color: $leftBreastColor;
   }
 
   .rightBreast {
-    background-color: #ffcb9b;
+    background-color: $rightBreastColor;
   }
 }
 
