@@ -16,16 +16,13 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  import { getFirestore, collection, query, getDocs, getDoc, doc, setDoc, where } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js'
+  import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js'
 
   const db = getFirestore();
 
-const docRef = doc(db, "feeds", "FxBOVsZswFZTo4OTgzqO");
-const docSnap = await getDoc(docRef);
-
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  // doc.data() will be undefined in this case
-  console.log("No such document!");
-}
+  // działa
+//   await setDoc(doc(db, "feeds", "LA"), {
+//   name: "Los Angeles",
+//   state: "CA",
+//   country: "USA"
+// });

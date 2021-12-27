@@ -1,3 +1,28 @@
+// Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBYTfRxehiM77l29mnWhxeydOUx5Npyjqg",
+    authDomain: "baby-feeding-kk.firebaseapp.com",
+    projectId: "baby-feeding-kk",
+    storageBucket: "baby-feeding-kk.appspot.com",
+    messagingSenderId: "25079389571",
+    appId: "1:25079389571:web:a8cdd0e81999ed815deab6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  import { getFirestore, doc, setDoc, collection, addDoc, getDocs, query, orderBy, limit  } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js'
+
+  const db = getFirestore();
+  const q = query(collection(db, "feeds"), orderBy("date", "desc"), limit(4));
+
+
+// Variables
 const breasts = document.querySelector('main');
 const leftBreastButton = document.querySelector('main div.leftBreast');
 const rightBreastButton = document.querySelector('main div.rightBreast');
@@ -5,10 +30,9 @@ const hisotryUl = document.querySelector('.history__list');
 const hisotryList = document.querySelectorAll('.history__list li');
 const dateInput = document.querySelector('input[type = date');
 const timeInput = document.querySelector('input[type = time');
+let lastLeftBreast = true;
+let feedingHistory = [];
 
-
-let a = new Date();
-a.setSeconds(0,0);
 
 // add current time to the inputs
 dateInput.valueAsDate = new Date();
@@ -17,9 +41,17 @@ dateInput.setAttribute('max', `${new Date().getFullYear()}-${new Date().getMonth
 timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
 
 
-let lastLeftBreast = true;
+// add data to Firestore
+      // Add a new document with a generated id.
+      const addDataToFirestore = async (breast, date) => {
+        const docRef = await addDoc(collection(db, "feeds"), {
+        breast: breast,
+        date: date
+            });
+        console.log("Document written with ID: ", docRef.id);
+      }
 
-let feedingHistory = [];
+// chose breast functions
 
 function choseLeftBreast(e) {
     leftBreastButton.classList.remove('nextBreast');
@@ -32,6 +64,7 @@ function choseLeftBreast(e) {
         date: `${dateInput.value} ${timeInput.value}`
     };
     feedingHistory.push(newFeeding);
+    addDataToFirestore('lewa', `${dateInput.value} ${timeInput.value}`);
     renderFeeds();
 };
 
@@ -40,48 +73,40 @@ function choseRightBreast(e) {
     rightBreastButton.classList.add('lastBreast');
     leftBreastButton.classList.add('nextBreast');
     leftBreastButton.classList.remove('lastBreast');
-    lastLeftBreast = false;
+    // lastLeftBreast = false;
    const newFeeding = {
         breast: 'prawa',
         date: `${dateInput.value} ${timeInput.value}`
     };
     feedingHistory.push(newFeeding);
+    addDataToFirestore('prawa', `${dateInput.value} ${timeInput.value}`)
     renderFeeds();
 }
 
-const renderFeeds = () => {
+
+// render feeds
+
+const renderFeeds = async () => {
     hisotryUl.innerHTML= '';
 
-    function compare( a, b ) {
-        if ( a.date < b.date ){
-            return -1;
-            }
-        if ( a.date > b.date ){
-            return 1;
-         }
-        return 0;
-        };
+      const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+         console.log(doc.id, " => ", doc.data());
 
-        const feedingHistorySortByDate = feedingHistory.sort( compare ).reverse();
-        const lastsFeedings = [...feedingHistorySortByDate];
-        if(lastsFeedings.length >= 4) {
-            lastsFeedings.length = 4
-        }
-
-        console.log(lastsFeedings)
-
-        lastsFeedings.forEach((feed) => {
-            const li = document.createElement('li');
+          const li = document.createElement('li');
             const pWithBreast = document.createElement('p');
             const pWithDate = document.createElement('p');
             li.innerHTML = `
              <div>
-            <p class="history__breast">${feed.breast}</p>
-            <p class="history__date">${feed.date}</p>
+            <p class="history__breast">${doc.data().breast}</p>
+            <p class="history__date">${doc.data().date}</p>
              </div>`;
             hisotryUl.appendChild(li);
-        })
-}
+        });
+};
+
+renderFeeds();
 
 leftBreastButton.addEventListener('click', choseLeftBreast);
 rightBreastButton.addEventListener('click', choseRightBreast);
