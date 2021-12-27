@@ -16,7 +16,7 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  import { getFirestore, doc, setDoc, collection, addDoc, getDocs, query, orderBy, limit  } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js'
+  import { getFirestore, doc, setDoc, collection, addDoc, getDocs, query, orderBy, limit, updateDoc, getDoc   } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js'
 
   const db = getFirestore();
   const q = query(collection(db, "feeds"), orderBy("date", "desc"), limit(4));
@@ -27,7 +27,7 @@
 const leftBreastButton = document.querySelector('main div.leftBreast');
 const rightBreastButton = document.querySelector('main div.rightBreast');
 const hisotryUl = document.querySelector('.history__list');
-const hisotryList = document.querySelectorAll('.history__list li');
+// const hisotryList = document.querySelectorAll('.history__list li');
 const dateInput = document.querySelector('input[type = date');
 const timeInput = document.querySelector('input[type = time');
 // let feedingHistory = [];
@@ -48,6 +48,14 @@ timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-di
         date: date
             });
         console.log("Document written with ID: ", docRef.id);
+      };
+
+      const changeBreast = async (breast ) => {
+        const docRef = doc(db, "nextBreast", "breast");
+         await updateDoc(docRef, {
+                    nextBreast: breast,
+                });
+        console.log("Document written with ID: ", docRef.id);
       }
 
 // chose breast functions
@@ -58,12 +66,13 @@ function choseLeftBreast(e) {
     rightBreastButton.classList.add('nextBreast');
     rightBreastButton.classList.remove('lastBreast');
     // lastLeftBreast = true;
-    const newFeeding = {
-        breast: 'lewa',
-        date: `${dateInput.value} ${timeInput.value}`
-    };
+    // const newFeeding = {
+    //     breast: 'lewa',
+    //     date: `${dateInput.value} ${timeInput.value}`
+    // };
     // feedingHistory.push(newFeeding);
     addDataToFirestore('lewa', `${dateInput.value} ${timeInput.value}`);
+    changeBreast('prawa');
     renderFeeds();
 };
 
@@ -78,7 +87,8 @@ function choseRightBreast(e) {
         date: `${dateInput.value} ${timeInput.value}`
     };
     // feedingHistory.push(newFeeding);
-    addDataToFirestore('prawa', `${dateInput.value} ${timeInput.value}`)
+    addDataToFirestore('prawa', `${dateInput.value} ${timeInput.value}`);
+     changeBreast('lewa');
     renderFeeds();
 }
 
@@ -120,8 +130,25 @@ renderFeeds();
 // check last breast use
 
 const checkLastBreast = async () => {
-    const querySnapshot = await getDocs(q);
+    const docRef = doc(db, "nextBreast", "breast");
+    const docSnap = await getDoc(docRef);
+    
+if (docSnap.data().nextBreast === 'lewa') {
+  leftBreastButton.classList.add('nextBreast');
+  rightBreastButton.classList.remove('nextBreast');
+      leftBreastButton.classList.remove('lastBreast');
+  rightBreastButton.classList.add('lastBreast');
+
+  console.log("Document data:", docSnap.data());
+} else {
+  leftBreastButton.classList.remove('nextBreast');
+  rightBreastButton.classList.add('nextBreast');
+      leftBreastButton.classList.add('lastBreast');
+  rightBreastButton.classList.remove('lastBreast');
+  console.log("No such document!");
 }
+};
+checkLastBreast();
 
 checkLastBreast()
 

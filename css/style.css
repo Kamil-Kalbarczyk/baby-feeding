@@ -8,6 +8,8 @@
 
 div.wrapper {
   height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,6 +47,10 @@ header h1 {
 
 .time input {
   font-size: 20px;
+}
+
+.time input:first-of-type {
+  margin-right: 20px;
 }
 
 main {

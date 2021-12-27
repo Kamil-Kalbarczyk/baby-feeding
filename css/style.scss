@@ -11,6 +11,8 @@ $rightBreastColor: #ffcb9b;
 
 div.wrapper {
   height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -40,6 +42,10 @@ header {
 
   input {
     font-size: 20px;
+  }
+
+  input:first-of-type {
+    margin-right: 20px;
   }
 }
 
