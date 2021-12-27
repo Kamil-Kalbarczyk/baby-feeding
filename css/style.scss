@@ -28,6 +28,21 @@ header {
   }
 }
 
+.time {
+  margin: 15px auto;
+
+  p {
+    margin-bottom: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 20px;
+  }
+}
+
 main {
   flex-grow: 1;
   display: flex;
@@ -50,8 +65,6 @@ main {
       text-align: center;
       font-size: 35px;
       font-weight: bold;
-      //   background-color: rgba(0, 0, 0, 0.5);
-      //   text-shadow: 0 0 10px black;
       color: black;
     }
   }
@@ -118,6 +131,7 @@ main {
         p {
           width: 50%;
           text-align: center;
+          font-size: 20px;
         }
       }
     }
