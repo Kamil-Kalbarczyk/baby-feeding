@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
 div.wrapper {
@@ -17,6 +18,126 @@ div.wrapper {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background-color: #f00;
+  background-color: #123456;
+}
+
+header {
+  height: 50px;
+}
+
+header h1 {
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  line-height: 50px;
+}
+
+main {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 25px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+main div {
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5%;
+}
+
+main div p {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: black;
+}
+
+main .leftBreast {
+  background-color: #66fcf1;
+}
+
+main .rightBreast {
+  background-color: #ffcb9b;
+}
+
+.history {
+  color: #fff;
+  margin: 0 auto 15px;
+  width: 80%;
+}
+
+.history h2 {
+  text-align: center;
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+.history .history__headOfList {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 18px;
+}
+
+.history .history__headOfList p {
+  width: 50%;
+  text-align: center;
+}
+
+.history ul {
+  list-style: none;
+  width: 100%;
+}
+
+.history ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #fff;
+}
+
+.history ul li div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.history ul li div p {
+  width: 50%;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
