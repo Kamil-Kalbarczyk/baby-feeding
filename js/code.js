@@ -27,11 +27,11 @@
 const leftBreastButton = document.querySelector('main div.leftBreast');
 const rightBreastButton = document.querySelector('main div.rightBreast');
 const hisotryUl = document.querySelector('.history__list');
-// const hisotryList = document.querySelectorAll('.history__list li');
+let hisotryList;
 const dateInput = document.querySelector('input[type = date');
 const timeInput = document.querySelector('input[type = time');
+let hisotryRecordsDivs;
 // let feedingHistory = [];
-
 
 // add current time to the inputs
 
@@ -61,9 +61,14 @@ timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-di
       }
 
       const addDataToFirebaseWithDateAsDoc = async (breast, date) => {
-        const docRef = await addDoc(collection(db, dateInput.value), {
-        breast: breast,
-        date: date
+        // const docRef = await addDoc(collection(db, dateInput.value), {
+        // breast: breast,
+        // date: date
+        //     });
+
+            await setDoc(doc(db, dateInput.value, timeInput.value), {
+            breast: breast,
+            date: date
             });
         // console.log("Document written with ID: ", docRef.id);
       };
@@ -135,6 +140,12 @@ const renderFeeds = async () => {
                 div.classList.add('rightBreast');
             }
         });
+hisotryList = document.querySelectorAll('.history__list li');
+
+hisotryRecordsDivs = document.querySelectorAll('.history__list div');
+hisotryRecordsDivs.forEach((record) => {
+  record.addEventListener('click', editRecord);
+})
 };
 
 renderFeeds();
@@ -165,3 +176,22 @@ checkLastBreast()
 
 leftBreastButton.addEventListener('click', choseLeftBreast);
 rightBreastButton.addEventListener('click', choseRightBreast);
+
+
+// edit record
+
+const editRecord = async function(e) {
+const leftBreastButtonEdit = document.createElement('button');
+leftBreastButtonEdit.textContent = 'Lewa';
+const rightBreastButtonEdit = document.createElement('button');
+rightBreastButtonEdit.textContent = 'Prawa';
+const dateTimeInputEdit = document.createElement('input');
+dateTimeInputEdit.setAttribute('type', 'datetime-local');
+dateTimeInputEdit.value = this.querySelector('p:last-of-type').textContent.replace(' ', 'T');
+const container = document.createElement('div');
+container.classList.add('editRecord');
+container.append(leftBreastButtonEdit, rightBreastButtonEdit, dateTimeInputEdit);
+this.appendChild(container);
+console.log(this.querySelector('p:first-of-type'));
+console.log(this.querySelector('p:last-of-type').textContent);
+};
