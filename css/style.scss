@@ -41,9 +41,22 @@ header {
     font-size: 20px;
   }
 
-  input {
-    font-size: 20px;
-    margin: 0 auto;
+  form {
+    display: flex;
+    gap: 10px;
+
+    input {
+      font-size: 20px;
+      margin: 0 auto;
+    }
+
+    input[type="date"] {
+      max-width: 178px;
+    }
+
+    input[type="time"] {
+      max-width: 93px;
+    }
   }
 }
 
@@ -189,6 +202,7 @@ main {
           grid-area: date;
           font-size: 20px;
           position: relative;
+          max-width: 168px;
         }
 
         input::-webkit-calendar-picker-indicator {

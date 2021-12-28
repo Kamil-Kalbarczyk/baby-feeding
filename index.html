@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Baby Feeding App</title>
     <!-- roboto font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
     <div class="wrapper">
-        <header>
+      <header>
         <h1>Anita, jesteś wielka!</h1>
-        </header>
-        <div class="time">
-            <p>Pora karmienia</p>
-            <input type="date">
-            <input type="time">
+      </header>
+      <div class="time">
+        <p>Pora karmienia</p>
+        <form>
+          <input type="date" />
+          <input type="time" />
+        </form>
+      </div>
+      <main>
+        <div class="leftBreast lastBreast">
+          <p>Lewa pierś</p>
         </div>
-        <main>
-            <div class="leftBreast lastBreast">
-                <p>Lewa pierś</p>
-            </div>
-            <div class="rightBreast nextBreast">
-                <p>Prawa pierś</p>
-            </div>
-        </main>
-            <div class="history">
-            <h2>Historia karmienia:</h2>
-            <div class="history__headOfList">
-                <p>Pierś</p>
-                <p>Data</p>
-            </div>
-            <ul class="history__list">
-            </ul>
+        <div class="rightBreast nextBreast">
+          <p>Prawa pierś</p>
         </div>
+      </main>
+      <div class="history">
+        <h2>Historia karmienia:</h2>
+        <div class="history__headOfList">
+          <p>Pierś</p>
+          <p>Data</p>
+        </div>
+        <ul class="history__list"></ul>
+      </div>
     </div>
 
     <script type="module" src="./js/code.js"></script>
-</body>
+  </body>
 </html>

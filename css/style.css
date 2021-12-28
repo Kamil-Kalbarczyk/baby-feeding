@@ -45,9 +45,24 @@ header h1 {
   font-size: 20px;
 }
 
-.time input {
+.time form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+
+.time form input {
   font-size: 20px;
   margin: 0 auto;
+}
+
+.time form input[type="date"] {
+  max-width: 178px;
+}
+
+.time form input[type="time"] {
+  max-width: 93px;
 }
 
 main {
@@ -230,6 +245,7 @@ main .rightBreast {
   grid-area: date;
   font-size: 20px;
   position: relative;
+  max-width: 168px;
 }
 
 .history ul li .editRecord input::-webkit-calendar-picker-indicator {
