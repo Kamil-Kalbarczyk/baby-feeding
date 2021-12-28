@@ -11,7 +11,7 @@ $editRecordBackgroundColor: #987654;
 }
 
 div.wrapper {
-  height: 100vh;
+  min-height: 100vh;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
@@ -153,6 +153,8 @@ main {
 
       .editRecord {
         position: absolute;
+        top: 0;
+        left: 0;
         display: grid;
         grid-template-columns: 2fr 3fr;
         grid-template-rows: 2fr 2fr;
@@ -162,8 +164,9 @@ main {
         align-items: center;
         height: 100%;
         width: 100%;
-        z-index: 1;
+        z-index: 3;
         background-color: $editRecordBackgroundColor;
+        overflow: hidden;
 
         button {
           font-size: 20px;
@@ -175,6 +178,10 @@ main {
 
         button:last-of-type {
           grid-area: buttonRight;
+        }
+
+        button.active {
+          border: 1px solid red;
         }
 
         input {

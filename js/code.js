@@ -180,11 +180,30 @@ rightBreastButton.addEventListener('click', choseRightBreast);
 
 // edit record
 
+const backgroundBlur = document.createElement('div');
+backgroundBlur.style.cssText = `
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -2;
+`;
+document.body.appendChild(backgroundBlur);
+
 const editRecord = async function(e) {
 const leftBreastButtonEdit = document.createElement('button');
 leftBreastButtonEdit.textContent = 'Lewa';
 const rightBreastButtonEdit = document.createElement('button');
 rightBreastButtonEdit.textContent = 'Prawa';
+
+if(leftBreastButtonEdit.textContent.toLowerCase() === this.querySelector('p:first-of-type').textContent.toLowerCase()) {
+  leftBreastButtonEdit.classList.add('active');
+} else {
+  rightBreastButtonEdit.classList.add('active');
+}
+
 const dateTimeInputEdit = document.createElement('input');
 dateTimeInputEdit.setAttribute('type', 'datetime-local');
 dateTimeInputEdit.value = this.querySelector('p:last-of-type').textContent.replace(' ', 'T');
@@ -192,6 +211,10 @@ const container = document.createElement('div');
 container.classList.add('editRecord');
 container.append(leftBreastButtonEdit, rightBreastButtonEdit, dateTimeInputEdit);
 this.appendChild(container);
-console.log(this.querySelector('p:first-of-type'));
-console.log(this.querySelector('p:last-of-type').textContent);
+backgroundBlur.style.zIndex = '2';
+
+backgroundBlur.addEventListener('click', () => {
+  backgroundBlur.style.zIndex = '-2';
+  container.remove();
+})
 };

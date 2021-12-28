@@ -7,7 +7,7 @@
 }
 
 div.wrapper {
-  height: 100vh;
+  min-height: 100vh;
   max-width: 600px;
   margin: 0 auto;
   display: -webkit-box;
@@ -184,6 +184,8 @@ main .rightBreast {
 
 .history ul li .editRecord {
   position: absolute;
+  top: 0;
+  left: 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 2fr 3fr;
@@ -196,8 +198,9 @@ main .rightBreast {
           align-items: center;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
   background-color: #987654;
+  overflow: hidden;
 }
 
 .history ul li .editRecord button {
@@ -214,6 +217,10 @@ main .rightBreast {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: buttonRight;
+}
+
+.history ul li .editRecord button.active {
+  border: 1px solid red;
 }
 
 .history ul li .editRecord input {
