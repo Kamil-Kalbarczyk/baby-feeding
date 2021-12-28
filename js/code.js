@@ -34,8 +34,10 @@ const timeInput = document.querySelector('input[type = time');
 
 
 // add current time to the inputs
-dateInput.valueAsDate = new Date();
-dateInput.setAttribute('max', `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`)
+
+// dateInput.valueAsDate = new Date();
+dateInput.value = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`
+dateInput.setAttribute('max', `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`);
 
 timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
 
@@ -47,7 +49,7 @@ timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-di
         breast: breast,
         date: date
             });
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
       };
 
       const changeBreast = async (breast ) => {
@@ -55,8 +57,16 @@ timeInput.value = new Date().toLocaleTimeString(navigator.language, {hour: '2-di
          await updateDoc(docRef, {
                     nextBreast: breast,
                 });
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
       }
+
+      const addDataToFirebaseWithDateAsDoc = async (breast, date) => {
+        const docRef = await addDoc(collection(db, dateInput.value), {
+        breast: breast,
+        date: date
+            });
+        // console.log("Document written with ID: ", docRef.id);
+      };
 
 // chose breast functions
 
@@ -74,6 +84,7 @@ function choseLeftBreast(e) {
     addDataToFirestore('lewa', `${dateInput.value} ${timeInput.value}`);
     changeBreast('prawa');
     renderFeeds();
+    addDataToFirebaseWithDateAsDoc('lewa', `${dateInput.value} ${timeInput.value}`);
 };
 
 function choseRightBreast(e) {
@@ -90,6 +101,7 @@ function choseRightBreast(e) {
     addDataToFirestore('prawa', `${dateInput.value} ${timeInput.value}`);
      changeBreast('lewa');
     renderFeeds();
+    addDataToFirebaseWithDateAsDoc('prawa', `${dateInput.value} ${timeInput.value}`);
 }
 
 
@@ -118,9 +130,9 @@ const renderFeeds = async () => {
             //  </div>`;
             hisotryUl.appendChild(li);
             if (doc.data().breast === 'lewa') {
-               div.style.backgroundColor = '#66fcf1' 
+               div.classList.add('leftBreast');
             } else {
-                div.style.backgroundColor = '#ffcb9b';
+                div.classList.add('rightBreast');
             }
         });
 };
@@ -145,7 +157,6 @@ if (docSnap.data().nextBreast === 'lewa') {
   rightBreastButton.classList.add('nextBreast');
       leftBreastButton.classList.add('lastBreast');
   rightBreastButton.classList.remove('lastBreast');
-  console.log("No such document!");
 }
 };
 checkLastBreast();

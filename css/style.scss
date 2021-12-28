@@ -130,6 +130,14 @@ main {
       border-bottom: 1px solid #fff;
       color: black;
 
+      div.leftBreast {
+        background-color: $leftBreastColor;
+      }
+
+      div.rightBreast {
+        background-color: $rightBreastColor;
+      }
+
       div {
         width: 100%;
         display: flex;

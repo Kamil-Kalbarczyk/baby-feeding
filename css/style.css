@@ -157,6 +157,14 @@ main .rightBreast {
   color: black;
 }
 
+.history ul li div.leftBreast {
+  background-color: #66fcf1;
+}
+
+.history ul li div.rightBreast {
+  background-color: #ffcb9b;
+}
+
 .history ul li div {
   width: 100%;
   display: -webkit-box;
