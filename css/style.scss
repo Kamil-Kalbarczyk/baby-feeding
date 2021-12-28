@@ -162,11 +162,11 @@ main {
           "buttonLeft date"
           "buttonRight date";
         align-items: center;
-        height: 100%;
-        width: 100%;
+        min-height: 100%;
+        min-width: 100%;
         z-index: 3;
         background-color: $editRecordBackgroundColor;
-        overflow: hidden;
+        // overflow: hidden;
 
         button {
           font-size: 20px;
